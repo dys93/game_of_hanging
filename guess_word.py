@@ -16,8 +16,8 @@ def init():
 def choose_answer():
 	ans = random.randint(0, len(word_l)-1)
 	
-	while len(word_l[ans]) != 8:
-		ans = random.randint(0, len(word_l)-1) 
+	'''while len(word_l[ans]) != 8:
+		ans = random.randint(0, len(word_l)-1) '''
 	return word_l[ans], len(word_l[ans])
 
 def next_char(known_list, al_guess=[]):
@@ -70,12 +70,14 @@ def main():
 	print 'start game'
 	ans, l = choose_answer()
 	print 'ans: ',ans
+	
 	pattern_l = [a_c] * l
+	al_guess = []
+	wl = word_l
 
 	time = 0
 	life = 10
-	al_guess = []
-	wl = word_l
+
 	while life > 0:
 		time += 1 
 		print 'time: ', time 
