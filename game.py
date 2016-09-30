@@ -1,6 +1,10 @@
 from guess_word import *
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
+hangmen = []
 def main():	
 	
 	print '_'*20
@@ -9,18 +13,24 @@ def main():
 	print 'start game'
 	ans, l = choose_answer()
 	sw = ['-']*l
-	print 'secret word:', ''.join(sw)
+	
 	time = 0
 	life = 10
 	pattern_l = [a_c] * l
 	al_guess = []
 	wl = word_l
+
 	while life > 0:
+
+		for line in hangmen[100-10*life:110-10*life]:
+			print line
+		print 'secret word:', ''.join(sw)
 		print 'time: ',time
 		print 'life: ',life
 		print 'input a char: '
 		c = raw_input()
 		while c not in a_c or not c:
+
 			print 'error input'
 			if c == '.':
 				print 'give you a suggesstion. why not try' ,next_char(wl, al_guess) ,'?'
@@ -40,10 +50,6 @@ def main():
 		if c not in ca:
 			life -= 1
 			print 'you lost a life'
-			if life == 0:
-				print 'you lost.'
-				print 'ans:', ans
-				return 0
 
 		for i in range(l):
 			if ca[i] == c:
@@ -59,10 +65,22 @@ def main():
 			print 'you win!'
 			print 'ans:', ans
 			return 1
-		print 'secret word:', ''.join(sw)
-	return 0
+	else:
+		for line in hangmen[100-10*life:110-10*life]:
+			print line
+		print 'you lost.'
+		print 'ans:', ans
+		return 0
+
+
+
+def hang_man():
+	with open('hangmen.txt','r') as inf:
+		for line in inf.readlines():
+			hangmen.append(line[0:-1])
 
 
 if __name__ == '__main__':
 	init()
+	hang_man()
 	main()

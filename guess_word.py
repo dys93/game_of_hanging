@@ -1,7 +1,7 @@
 import re
 import random
 word_l = []
-word_num = 30000
+word_num = 333333
 a_c = 'abcdefghijklmnopqrstuvwxyz'
 def init():
 	with open('count_1w.txt', 'r') as input_f:
@@ -80,42 +80,40 @@ def main():
 
 	while life > 0:
 		time += 1 
-		print 'time: ', time 
+		#print 'time: ', time 
 		wl = re_get_word_list(word_l, pattern_l)
-		if len(wl) < 26:
-			print wl
+		#if len(wl) < 26:
+			#print wl
 
 		if len(wl) == 1:
-			print 'only one'
-			print 'ans  :', wl
-			print 'life :', life
+			#print 'only one'
+			#print 'ans  :', wl
+			#print 'life :', life
 			return 1
-		print 'last_:', len(wl)
+		#print 'last_:', len(wl)
 		nc = next_char(wl, al_guess)
-		print 'guess:', nc
+		#print 'guess:', nc
 		al_guess.append(nc)
 		ca = compare_ans(ans, ''.join(nc))
-		print 'g_sta:', ''.join(ca)
+		#print 'g_sta:', ''.join(ca)
 
 		#print 'pl   :',' '.join(pattern_l)
 		if nc not in ca:
 			life -= 1
-		print 'life :',life	
+		#print 'life :',life	
 		for i in range(l):
 			if ca[i] == nc:
 				pattern_l[i] = nc
 			else:
 				pattern_l[i] = ''.join(pattern_l[i].split(nc))
-	print 'false'
-	print wl
+	#print 'false'
+	#print wl
 	return 0
 
 if __name__ == '__main__':
 	init()
 	r = 0
-	time = 100
-	for i in range(time):
+	time = 1000
+	for i in range(1,time+1):
 		r += main()
-		print r*1.0/time
-
-
+		print r*1.0/i
